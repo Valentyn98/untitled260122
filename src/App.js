@@ -7,7 +7,6 @@ const reducer = (state ,action) =>{
 switch (action.type){
     case 'inc':
         return{...state,count:state.count +1}
-
     case 'dec':
         return{...state,count:state.count -1}
     case 'res':
@@ -24,7 +23,6 @@ switch (action.type){
         return{...state,callCountTwo:state.callCountTwo -1}
     case 'resss':
         return{...state,callCountTwo:action.payload}
-
     default:
         return state
 }
@@ -39,7 +37,6 @@ function App() {
         <button onClick={()=>dispatche({type:'inc'})}>Inc</button>
         <button onClick={()=>dispatche({type:'dec'})}>Dec</button>
         <button onClick={()=>dispatche({type: 'res', payload:0})}>Res</button>
-
 
         <div>callCount: {state.callCount}</div>
         <button onClick={()=>dispatche({type:'incc'})}>Inc</button>
