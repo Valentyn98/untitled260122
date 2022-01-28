@@ -1,53 +1,49 @@
 
 import './App.css';
-import {useReducer} from "react";
+import {useReducer, useState} from "react";
+import formReducer from "./reducer/formReducer";
+import Dogs from "./components/dogs/Dogs";
+import Cats from "./components/cats/Cats";
 
+const initialFormState = {
+    dogs:[],
+    cats:[],
+    dog:'',
+    cat:''
+};
+function App () {
+    const [state,dispatch] = useReducer(formReducer,initialFormState)
+    const[count, setCount] = useState(0)
 
-const reducer = (state ,action) =>{
-switch (action.type){
-    case 'inc':
-        return{...state,count:state.count +1}
-    case 'dec':
-        return{...state,count:state.count -1}
-    case 'res':
-        return{...state,count:action.payload}
-    case 'incc':
-        return{...state,callCount:state.callCount +1}
-    case 'decc':
-        return{...state,callCount:state.callCount -1}
-    case 'ress':
-        return{...state,callCount:action.payload}
-    case 'inccc':
-        return{...state,callCountTwo:state.callCountTwo +1}
-    case 'deccc':
-        return{...state,callCountTwo:state.callCountTwo -1}
-    case 'resss':
-        return{...state,callCountTwo:action.payload}
-    default:
-        return state
-}
-
-}
-
-function App() {
-    const [state, dispatche] = useReducer(reducer , {count: 0, callCount:0,callCountTwo:0})
-  return (
+    console.log(state);
+    const handleTextChange = (e) => {
+        dispatch({
+            type:'handle input text',
+            field: e.target.name,
+            payload: e.target.value
+        })
+    }
+    const click = (e) => {
+        e.preventDefault()
+    }
+    return (
     <div className="App">
-        <div>Count: {state.count}</div>
-        <button onClick={()=>dispatche({type:'inc'})}>Inc</button>
-        <button onClick={()=>dispatche({type:'dec'})}>Dec</button>
-        <button onClick={()=>dispatche({type: 'res', payload:0})}>Res</button>
-
-        <div>callCount: {state.callCount}</div>
-        <button onClick={()=>dispatche({type:'incc'})}>Inc</button>
-        <button onClick={()=>dispatche({type:'decc'})}>Dec</button>
-        <button onClick={()=>dispatche({type: 'ress', payload:0})}>Res</button>
-
-        <div>callCountTwo: {state.callCountTwo}</div>
-        <button onClick={()=>dispatche({type:'inccc'})}>Inc</button>
-        <button onClick={()=>dispatche({type:'deccc'})}>Dec</button>
-        <button onClick={()=>dispatche({type: 'resss', payload:0})}>Res</button>
-
+        <form onSubmit={click}>
+            <input type="text"name={'dog'} value={state.dog} onChange={handleTextChange}/>
+            <button onClick={()=>dispatch({type:'addDog'})}>SETDOG</button>
+            <input type="text"name={'cat'} value={state.cat} onChange={handleTextChange}/>
+            <button onClick={()=>dispatch({type:'addCat'})}>SETCAT</button>
+        </form>
+        <div>
+            { state.dogs.length !== 0 &&
+                state.dogs.map(dogs =>
+                <Dogs removeDog={dispatch} key={dogs.id} dogs={dogs} />)}
+        </div>
+        <div>
+            {state.cats.map(value => <div>
+                {value}
+            </div>)}
+        </div>
     </div>
   );
 }
