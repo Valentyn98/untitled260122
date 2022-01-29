@@ -13,8 +13,6 @@ const initialFormState = {
 };
 function App () {
     const [state,dispatch] = useReducer(formReducer,initialFormState)
-    const[count, setCount] = useState(0)
-
     console.log(state);
     const handleTextChange = (e) => {
         dispatch({
@@ -23,6 +21,7 @@ function App () {
             payload: e.target.value
         })
     }
+    console.log(state)
     const click = (e) => {
         e.preventDefault()
     }
@@ -40,9 +39,9 @@ function App () {
                 <Dogs removeDog={dispatch} key={dogs.id} dogs={dogs} />)}
         </div>
         <div>
-            {state.cats.map(value => <div>
-                {value}
-            </div>)}
+            {   state.cats.length !== 0 &&
+                state.cats.map(cats =>
+                <Cats removeCat={dispatch} key={cats.id} cats={cats}/>)}
         </div>
     </div>
   );

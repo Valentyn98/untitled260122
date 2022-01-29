@@ -1,7 +1,5 @@
 import React from 'react';
 
-
-
 const Dogs = ({dogs,removeDog}) => {
     return (
         <div>
@@ -10,10 +8,8 @@ const Dogs = ({dogs,removeDog}) => {
         <div><button onClick={()=>{
             console.log(dogs.id)
             removeDog({type:'delDog',id:dogs.id})
-
         }}>Remove</button></div>
         </div>
     );
 };
-
 export default Dogs;
