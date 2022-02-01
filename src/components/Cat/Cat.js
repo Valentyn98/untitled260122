@@ -5,6 +5,7 @@ const Cat = ({cat:{id,name},dispatch}) => {
         <div>
             {name}
             <button onClick={()=>dispatch({type:'DEL_CAT',payload:{id}})}>DELCAT</button>
+            {/*<button onClick={()=>dispatch({id})}>DELCAT</button>*/}
         </div>
     );
 };
