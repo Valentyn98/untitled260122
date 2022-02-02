@@ -7,5 +7,4 @@ const store = configureStore({
         carReducer
     }
 })
-
 export default store
